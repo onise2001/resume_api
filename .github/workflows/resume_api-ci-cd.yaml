@@ -38,3 +38,27 @@ jobs:
       
       - name: run tests
         run: python manage.py test
+
+
+  deploy:
+    name: deploy to digitalocean
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps: 
+      - name: deploy to Digitalocean
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+           host: ${{ secrets.SSH_HOST}}
+           username: ${{ secrest.SSH_USERNAME}}
+           key: ${{ secrets.SSH_PRIVATE_KEY}}
+
+           script: |
+             ssh root@64.226.119.53
+             cd resume_api
+             git pull
+             docker-compose down
+             docker-compose up --detach
+
+    
+
