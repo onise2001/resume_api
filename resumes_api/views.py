@@ -9,6 +9,7 @@ from rest_framework import status
 
 
 class ResumeViewSet(GenericViewSet):
+    queryset = Resume.objects.all()
     serializer_class = ResumeSerializer
 
 
