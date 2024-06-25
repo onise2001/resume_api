@@ -36,21 +36,21 @@ class ResumeSerializer(ModelSerializer):
 
     def create(self,validated_data):
         general_info = GeneralInfo.objects.create(**validated_data['general'])
-        my_experience = Experience.objects.create(**validated_data['experience'])
+        #my_experience = Experience.objects.create(**validated_data['experience'])
         my_education = Education.objects.create(**validated_data['education'])
         resume = Resume(
             general=general_info,
-            experience=my_experience,
+            #experience=my_experience,
             education=my_education,
         )
         resume.save()
 
 
-        # for experience in validated_data['experience']:
-        #     new_experience = Experience.objects.create(**experience)
-        #     resume.experience.add(new_experience)
+        for experience in validated_data['experience']:
+            new_experience = Experience.objects.create(**experience)
+            resume.experience.add(new_experience)
 
-        # resume.save()
+        resume.save()
 
         return resume
 

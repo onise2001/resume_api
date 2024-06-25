@@ -32,5 +32,5 @@ class Education(models.Model):
 
 class Resume(models.Model):
     general = models.ForeignKey(GeneralInfo, on_delete=models.CASCADE)
-    experience = models.ForeignKey(Experience,on_delete=models.CASCADE)
+    experience = models.ManyToManyField(Experience)
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
