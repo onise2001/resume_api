@@ -6,7 +6,7 @@ from django.db import models
 class GeneralInfo(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='mediafiles')
+    image = models.ImageField()
     about_me = models.TextField()
     email = models.EmailField()
     phone_number = models.CharField(max_length=15)
