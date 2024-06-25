@@ -4,13 +4,14 @@ from .serializers import ResumeSerializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import status
-
+from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 
 
 class ResumeViewSet(GenericViewSet):
     queryset = Resume.objects.all()
     serializer_class = ResumeSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
 
     def list(self, request):
