@@ -26,7 +26,7 @@ class EducationSerializer(ModelSerializer):
 
 class ResumeSerializer(ModelSerializer):
     general = GeneralSerializer()
-    experience = ExperienceSerializer()
+    experience = ExperienceSerializer(many=True)
     education = EducationSerializer()
 
     class Meta:
