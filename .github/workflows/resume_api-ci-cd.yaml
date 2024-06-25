@@ -10,9 +10,9 @@ on:
     branches: [ main ]
 
   
-  env:
-    DB_URL: ${{ secrets.DB_URL }}
-    SECRET_KEY: ${{ secrets.SECRET_KEY }}
+env:
+  DB_URL: ${{ secrets.DB_URL }}
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
 
 jobs:
