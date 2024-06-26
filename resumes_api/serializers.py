@@ -26,7 +26,7 @@ class EducationSerializer(ModelSerializer):
 
 class ResumeSerializer(ModelSerializer):
     general = GeneralSerializer()
-    experience = ExperienceSerializer(many=True)
+    experience = ExperienceSerializer()
     education = EducationSerializer()
 
     class Meta:
@@ -38,6 +38,7 @@ class ResumeSerializer(ModelSerializer):
         general_info = GeneralInfo.objects.create(**validated_data['general'])
         #my_experience = Experience.objects.create(**validated_data['experience'])
         my_education = Education.objects.create(**validated_data['education'])
+        
         resume = Resume(
             general=general_info,
             #experience=my_experience,

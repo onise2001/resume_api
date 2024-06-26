@@ -5,13 +5,15 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
+from drf_yasg.utils import swagger_auto_schema
+from resumes.yasg import CustomAutoSchema
 # Create your views here.
 
-
+#@swagger_auto_schema(auto_schema=CustomAutoSchema)
 class ResumeViewSet(GenericViewSet):
     queryset = Resume.objects.all()
     serializer_class = ResumeSerializer
-    parser_classes = (MultiPartParser, FormParser)
+    #parser_classes = (MultiPartParser, FormParser)
 
 
     def list(self, request):
