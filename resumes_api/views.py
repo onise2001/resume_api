@@ -42,6 +42,8 @@ class ResumeViewSet(GenericViewSet):
     def destroy(self, request, pk=None):
         instance = self.get_object()
         if instance:
+            for experience in instance.experience.all():
+                experience.delete()
             instance.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_404_NOT_FOUND)

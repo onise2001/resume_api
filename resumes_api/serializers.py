@@ -54,4 +54,21 @@ class ResumeSerializer(ModelSerializer):
         resume.save()
 
         return resume
+    
+
+    def update(self,instance, validated_data):
+        experiences = validated_data.pop('experience')
+        instance = super().update(instance, validated_data)
+
+        for experience in experiences:
+            if 'id' in experience.keys():
+                instance.experience.add(experience)
+            else:
+                new_experience = Experience.objects.create(**experience)
+                instance.experience.add(new_experience)
+
+        instance.save()
+        return instance 
+
+
 
