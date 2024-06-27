@@ -58,6 +58,7 @@ class ResumeSerializer(ModelSerializer):
 
     def update(self,instance, validated_data):
         experiences = validated_data.pop('experience')
+        instance.experience.clear()
         instance = super().update(instance, validated_data)
 
         for experience in experiences:
