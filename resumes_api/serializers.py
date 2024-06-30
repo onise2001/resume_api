@@ -37,16 +37,18 @@ class ResumeSerializer(ModelSerializer):
     def create(self,validated_data):
         general_info = GeneralInfo.objects.create(**validated_data['general'])
         #my_experience = Experience.objects.create(**validated_data['experience'])
-        my_education = Education.objects.create(**validated_data['education'])
+        #my_education = Education.objects.create(**validated_data['education'])
         
         resume = Resume(
             general=general_info,
             #experience=my_experience,
-            education=my_education,
+            #education=my_education,
         )
         resume.save()
 
-
+        for education in validated_data['education']:
+            new_education = Education.objects.create(**education)
+            resume.education.add(new_education)
         for experience in validated_data['experience']:
             new_experience = Experience.objects.create(**experience)
             resume.experience.add(new_experience)
@@ -58,8 +60,18 @@ class ResumeSerializer(ModelSerializer):
 
     def update(self,instance, validated_data):
         experiences = validated_data.pop('experience')
+        education_list = validated_data.pop('education')
+
         instance.experience.clear()
         instance = super().update(instance, validated_data)
+
+
+        for education in education_list:
+            if 'id' in education.keys():
+                instance.education.add(education)
+            else:
+                new_education = Experience.objects.create(**education)
+                instance.education.add(new_education)
 
         for experience in experiences:
             if 'id' in experience.keys():

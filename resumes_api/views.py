@@ -44,6 +44,8 @@ class ResumeViewSet(GenericViewSet):
         if instance:
             for experience in instance.experience.all():
                 experience.delete()
+            for education in instance.education.all():
+                education.delete()
             instance.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_404_NOT_FOUND)
